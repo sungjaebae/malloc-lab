@@ -46,6 +46,10 @@ team_t team = {
 #define NEXT_BLKP(bp) ((char *)(bp) + GET_SIZE(((char *)(bp)-WSIZE)))
 #define PREV_BLKP(bp) ((char *)(bp)-GET_SIZE(((char *)(bp)-DSIZE)))
 
+#define CHECKHEAP(lineno, str)                                                 \
+  printf("===========[%s]", __func__);                                         \
+  mm_checkheap(lineno);
+
 // 정적 변수
 void *heap_listp = NULL;
 
@@ -53,7 +57,9 @@ static void *extend_heap(size_t words);
 static void *coalesce(void *bp);
 static void *find_fit(size_t asize);
 static void place(void *bp, size_t asize);
-
+#ifdef DEBUG
+static void mm_checkheap(int lineno);
+#endif
 /*
  * mm_init - initialize the malloc package.
  */
@@ -70,6 +76,10 @@ int mm_init(void) {
   if (extend_heap(CHUNKSIZE / WSIZE) == NULL) {
     return -1;
   }
+  printf("\n");
+#ifdef DEBUG
+  CHECKHEAP(__LINE__, "init done");
+#endif
   return 0;
 }
 
@@ -95,22 +105,31 @@ void *mm_malloc(size_t size) {
   // fit 맞는 블록을 찾아서 거기에 할당한다
   if ((bp = find_fit(asize)) != NULL) {
     place(bp, asize);
+#ifdef DEBUG
+    CHECKHEAP(__LINE__, "can't find fit block");
+#endif
     return bp;
   }
   // 못찾으면 힙사이즈를 늘린다
   extendsize = MAX(asize, CHUNKSIZE);
   if ((bp = extend_heap(extendsize / WSIZE)) == NULL) {
+#ifdef DEBUG
+    CHECKHEAP(__LINE__, "can't find extend heap");
+#endif
     return NULL;
   }
   place(bp, asize);
+#ifdef DEBUG
+  CHECKHEAP(__LINE__, "malloc done");
+#endif
   return bp;
 }
 
 // splitting 기능이 필요하다. asize는 이미 aligned 되었다
 static void place(void *bp, size_t asize) {
-  int oldsize = GET_SIZE(bp);
-  PUT(HDRP(bp), PACK(asize, 0));
-  PUT(FTRP(bp), PACK(asize, 0));
+  size_t oldsize = GET_SIZE(HDRP(bp));
+  PUT(HDRP(bp), PACK(asize, 1));
+  PUT(FTRP(bp), PACK(asize, 1));
   if (asize < oldsize) {
     void *rest_bp = NEXT_BLKP(bp);
     PUT(HDRP(rest_bp), PACK(oldsize - asize, 0));
@@ -141,6 +160,9 @@ void mm_free(void *bp) {
   PUT(HDRP(bp), PACK(size, 0));
   PUT(FTRP(bp), PACK(size, 0));
   coalesce(bp);
+#ifdef DEBUG
+  CHECKHEAP(__LINE__, "free done");
+#endif
 }
 
 static void *coalesce(void *bp) {
@@ -182,19 +204,44 @@ void *mm_realloc(void *bp, size_t size) {
   void *new_bp = mm_malloc(size);
   memcpy(new_bp, bp, allocated_size);
   free(bp);
+#ifdef DEBUG
+  CHECKHEAP(__LINE__, "realloc done");
+#endif
   return new_bp;
 }
 
 // fist fit
 static void *find_fit(size_t asize) {
-  void *cur_bp = heap_listp + 4 * WSIZE;
+  void *cur = heap_listp + 2 * WSIZE;
   size_t cur_size = 0;
   size_t cur_alloc = 0;
-  while ((cur_alloc = GET_ALLOC(cur_bp)) != 1 &&
-         (cur_size = GET_SIZE(cur_bp)) != 0) {
+  while ((cur_alloc = GET_ALLOC(HDRP(cur))) != 1 &&
+         (cur_size = GET_SIZE(HDRP(cur))) != 0) {
     if (cur_alloc == 0 && cur_size >= asize) {
-      return cur_bp;
+      return cur;
     }
+    cur = NEXT_BLKP(cur);
   }
   return NULL;
+}
+
+static void mm_checkheap(int lineno) {
+  printf("heap checking, line %d ===========\n", lineno);
+  unsigned int *cur = heap_listp;
+  unsigned int cur_size = 0;
+  unsigned int cur_alloc = 0;
+  unsigned int i = 0;
+  while (1) {
+    cur_size = GET_SIZE(cur);
+    cur_alloc = GET_ALLOC(cur);
+    if (cur_size != 0u || cur_alloc != 0u) {
+      printf("[byte%d]: %d [size]: %d [alloc]: %d\n", i, cur[0], cur_size,
+             cur_alloc);
+    }
+    if (cur_size == 0u && cur_alloc == 1u) {
+      break;
+    }
+    cur++;
+    i++;
+  }
 }

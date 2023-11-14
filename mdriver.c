@@ -26,10 +26,11 @@
  **********************/
 
 /* Misc */
-#define MAXLINE 1024       /* max string size */
-#define HDRLINES 4         /* number of header lines in a trace file */
-#define LINENUM(i) (i + 5) /* cnvt trace request nums to linenums (origin 1)   \
-                            */
+#define MAXLINE 1024 /* max string size */
+#define HDRLINES 4   /* number of header lines in a trace file */
+#define LINENUM(i)                                                             \
+  (i + 5) /* cnvt trace request nums to linenums (origin 1)                    \
+           */
 
 /* Returns true if p is ALIGNMENT-byte aligned */
 #define IS_ALIGNED(p) ((((unsigned int)(p)) % ALIGNMENT) == 0)
@@ -139,7 +140,8 @@ int main(int argc, char **argv) {
   char **tracefiles = NULL;   /* null-terminated array of trace file names */
   int num_tracefiles = 0;     /* the number of traces in that array */
   trace_t *trace = NULL;      /* stores a single trace file in memory */
-  range_t *ranges = NULL;     /* keeps track of block extents for one trace */
+  range_t *ranges = NULL;     /* keeps track of block extents for one trace
+                               */
   stats_t *libc_stats = NULL; /* libc stats for each trace */
   stats_t *mm_stats = NULL;   /* mm (i.e. student) stats for each trace */
   speed_t speed_params;       /* input parameters to the xx_speed routines */
