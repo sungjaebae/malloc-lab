@@ -1,0 +1,17 @@
+[
+    {
+        "command": "gcc -Wall -O2 -m32 -g   -c -o mdriver.o mdriver.c",
+        "directory": "/root/workspace/malloc-lab",
+        "file": "/root/workspace/malloc-lab/mdriver.c"
+    },
+    {
+        "command": "gcc -Wall -O2 -m32 -g   -c -o mm.o mm.c",
+        "directory": "/root/workspace/malloc-lab",
+        "file": "/root/workspace/malloc-lab/mm.c"
+    },
+    {
+        "command": "gcc -Wall -O2 -m32 -g   -c -o memlib.o memlib.c",
+        "directory": "/root/workspace/malloc-lab",
+        "file": "/root/workspace/malloc-lab/memlib.c"
+    }
+]
