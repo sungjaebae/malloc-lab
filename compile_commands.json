@@ -1,36 +1,36 @@
 [
     {
-        "command": "gcc -Wall -Wextra -g -m32 -DDRIVER -std=gnu99 -Wno-unused-function -Wno-unused-parameter -DDEBUG -c mdriver.c -MD",
+        "command": "clang -Wall -Wextra -g -m32 -DDRIVER -std=gnu99 -Wno-unused-function -Wno-unused-parameter  -DDEBUG -c mdriver.c -MD",
         "directory": "/root/workspace/malloc-lab",
         "file": "/root/workspace/malloc-lab/mdriver.c"
     },
     {
-        "command": "gcc -Wall -Wextra -g -m32 -DDRIVER -std=gnu99 -Wno-unused-function -Wno-unused-parameter -DDEBUG -c mm.c -MD",
+        "command": "clang -Wall -Wextra -g -m32 -DDRIVER -std=gnu99 -Wno-unused-function -Wno-unused-parameter  -DDEBUG -c mm.c -MD",
         "directory": "/root/workspace/malloc-lab",
         "file": "/root/workspace/malloc-lab/mm.c"
     },
     {
-        "command": "gcc -Wall -Wextra -g -m32 -DDRIVER -std=gnu99 -Wno-unused-function -Wno-unused-parameter -DDEBUG -c memlib.c -MD",
+        "command": "clang -Wall -Wextra -g -m32 -DDRIVER -std=gnu99 -Wno-unused-function -Wno-unused-parameter  -DDEBUG -c memlib.c -MD",
         "directory": "/root/workspace/malloc-lab",
         "file": "/root/workspace/malloc-lab/memlib.c"
     },
     {
-        "command": "gcc -Wall -Wextra -g -m32 -DDRIVER -std=gnu99 -Wno-unused-function -Wno-unused-parameter -DDEBUG -c fsecs.c -MD",
+        "command": "clang -Wall -Wextra -g -m32 -DDRIVER -std=gnu99 -Wno-unused-function -Wno-unused-parameter  -DDEBUG -c fsecs.c -MD",
         "directory": "/root/workspace/malloc-lab",
         "file": "/root/workspace/malloc-lab/fsecs.c"
     },
     {
-        "command": "gcc -Wall -Wextra -g -m32 -DDRIVER -std=gnu99 -Wno-unused-function -Wno-unused-parameter -DDEBUG -c fcyc.c -MD",
+        "command": "clang -Wall -Wextra -g -m32 -DDRIVER -std=gnu99 -Wno-unused-function -Wno-unused-parameter  -DDEBUG -c fcyc.c -MD",
         "directory": "/root/workspace/malloc-lab",
         "file": "/root/workspace/malloc-lab/fcyc.c"
     },
     {
-        "command": "gcc -Wall -Wextra -g -m32 -DDRIVER -std=gnu99 -Wno-unused-function -Wno-unused-parameter -DDEBUG -c clock.c -MD",
+        "command": "clang -Wall -Wextra -g -m32 -DDRIVER -std=gnu99 -Wno-unused-function -Wno-unused-parameter  -DDEBUG -c clock.c -MD",
         "directory": "/root/workspace/malloc-lab",
         "file": "/root/workspace/malloc-lab/clock.c"
     },
     {
-        "command": "gcc -Wall -Wextra -g -m32 -DDRIVER -std=gnu99 -Wno-unused-function -Wno-unused-parameter -DDEBUG -c ftimer.c -MD",
+        "command": "clang -Wall -Wextra -g -m32 -DDRIVER -std=gnu99 -Wno-unused-function -Wno-unused-parameter  -DDEBUG -c ftimer.c -MD",
         "directory": "/root/workspace/malloc-lab",
         "file": "/root/workspace/malloc-lab/ftimer.c"
     }

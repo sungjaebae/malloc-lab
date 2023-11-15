@@ -5,7 +5,7 @@ TEAM = bovik
 VERSION = 1
 HANDINDIR = /afs/cs.cmu.edu/academic/class/15213-f01/malloclab/handin
 
-CC = gcc
+CC = clang
 CFLAGS = -Wall -Wextra -g -m32 -DDRIVER -std=gnu99 -Wno-unused-function -Wno-unused-parameter
 # CFLAGS = -Wall -Wextra -O3 -g -DDRIVER -std=gnu99 -Wno-unused-function -Wno-unused-parameter -DDEBUG
 

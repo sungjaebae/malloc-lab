@@ -3,9 +3,10 @@
   "makefile.launchConfigurations": [
     {
       "cwd": "/root/workspace/malloc-lab",
-      "MIMode": "gdb",
       "binaryPath": "/root/workspace/malloc-lab/mdriver",
-      "binaryArgs": ["-f", "traces/short1-bal.rep"]
+      "MIMode": "gdb",
+      // "miDebuggerPath": "usr/bin/lldb-mi",
+      "binaryArgs": ["-f", "./traces/realloc2-bal.rep"]
     }
   ]
 }
